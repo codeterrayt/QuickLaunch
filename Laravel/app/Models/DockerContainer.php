@@ -11,6 +11,7 @@ class DockerContainer extends Model
 
     protected $fillable = [
         'user_id',
+        'image_id',
         'container_name',
         'container_id',
         'portMap',
@@ -37,5 +38,11 @@ class DockerContainer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function image(){
+        return $this->hasOne(DockerImage::class,"id","image_id");
+    }
+
+
 
 }

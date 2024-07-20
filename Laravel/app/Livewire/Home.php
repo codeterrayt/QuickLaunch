@@ -78,6 +78,7 @@ class Home extends Component
         $container = DockerContainer::create([
             'user_id' => auth()->id(),
             'container_name' => $this->spaceName,
+            'image_id' => $this->clicked_image->id,
             'container_id' => $response['container_id'],
             'portMap' => $response['portMap'],
             'status' =>  $response['container_state']['Status'],

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('container_name');
+            $table->unsignedBigInteger('image_id');
+            $table->foreign('image_id')->references("id")->on("docker_images")->onDelete('cascade');
             $table->string('container_id');
             $table->json('portMap');
             $table->string('status');

@@ -20,6 +20,11 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+
+Route::view('spaces', 'spaces')
+    ->middleware(['auth', 'verified'])
+    ->name('spaces');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
