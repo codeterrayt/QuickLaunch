@@ -176,6 +176,7 @@ const createAndStartContainer = async (image, ports) => {
       PortBindings: portBindings,
     },
     User: "root", // Run as root
+    // hostname: "QuickLaunch"
   };
 
   try {

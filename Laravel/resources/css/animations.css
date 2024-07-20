@@ -1,0 +1,16 @@
+@keyframes bounce-arrow {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+.arrow-bounce {
+    display: inline-block; /* Ensure the SVG is inline for smooth animation */
+}
+
+.launch-button:hover .arrow-bounce {
+    animation: bounce-arrow 1.5s infinite ease-in-out;
+}

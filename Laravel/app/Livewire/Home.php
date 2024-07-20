@@ -7,8 +7,21 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 use App\Models\DockerContainer;
 
-class Test extends Component
+class Home extends Component
 {
+
+    public $images;
+
+    public function mount(){
+        $this->images = DockerImage::get();
+    }
+
+    public function launch($image_id){
+        $image = DockerImage::findOrFail($image_id);
+
+        dd($image);
+
+    }
 
     public function start(){
         $image = DockerImage::first();
@@ -41,10 +54,12 @@ class Test extends Component
         ]);
         dd($response->json());
 
+
+
     }
 
     public function render()
     {
-        return view('livewire.test');
+        return view('livewire.home');
     }
 }
