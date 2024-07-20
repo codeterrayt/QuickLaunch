@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('docker_containers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('container_name');
             $table->string('container_id');
             $table->json('portMap');
             $table->string('status');

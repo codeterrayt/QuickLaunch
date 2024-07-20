@@ -16,33 +16,88 @@
                     </div>
                 </div>
                 <div class="flex justify-center mt-auto">
-                    <a
-                    wire:click="launch({{ $image->id }})"
-                    wire:target="launch({{ $image->id }})"
-                    wire:loading.attr="disabled"
-                    class="launch-button w-40 mb-5 inline-flex items-center px-3 py-2 justify-center cursor-pointer text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <a wire:click="draft_image({{ $image->id }})" wire:target="draft_image({{ $image->id }})"
+                        wire:loading.attr="disabled"
+                        class="launch-button w-40 mb-5 inline-flex items-center px-3 py-2 justify-center cursor-pointer text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
 
-                    <div wire:loading wire:target="launch({{ $image->id }})">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                        </svg>
-                    </div>
+                        <div wire:loading wire:target="draft_image({{ $image->id }})">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                            </svg>
+                        </div>
 
-                    <div wire:loading.remove wire:target="launch({{ $image->id }})">
-                        Launch
-                        <svg class="arrow-bounce rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </div>
-                </a>
+                        <div wire:loading.remove wire:target="draft_image({{ $image->id }})">
+                            Launch
+                            <svg class="arrow-bounce rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                            </svg>
+                        </div>
+                    </a>
                 </div>
 
             </div>
         @endforeach
+    </div>
+
+
+    <div class="fixed inset-0 flex items-center justify-center z-50" x-data="{ showModal: @entangle('showModal') }" x-show="showModal"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90">
+
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-80 backdrop-blur-lg duration-300"></div>
+
+        <div class="dark:bg-gray-800 border-gray-400 rounded-lg shadow-lg p-6 w-full max-w-md relative z-10">
+            <h2 class="text-xl font-bold mb-4">Quick Space Name</h2>
+            <input type="text" wire:model="spaceName" placeholder="Space Name"
+                class="w-full  bg-transparent  p-2  border-b-blue-500 border-b-2  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+            @error('spaceName')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+
+
+            <h2 class="text-xl font-bold mb-4">Password</h2>
+            <input type="password" wire:model="password" placeholder="Space Password"
+                class="w-full  bg-transparent  p-2  border-b-blue-500 border-b-2  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+            @error('password')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+
+            <div class="flex justify-end">
+                <button wire:click="closeModal" class="px-4 py-2 mr-2 text-white focus:outline-none"  wire:loading.remove wire:target="SaveAndStartSpace">
+                    Cancel
+                </button>
+                <button wire:click="SaveAndStartSpace"  wire:loading.attr="disabled"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+
+                    <div wire:loading.remove wire:target="SaveAndStartSpace">
+                        Create Space
+                        <svg class="arrow-bounce rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </div>
+                    <div wire:loading wire:target="SaveAndStartSpace">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </div>
+
+                </button>
+            </div>
+        </div>
     </div>
 
 

@@ -11,6 +11,7 @@ class DockerContainer extends Model
 
     protected $fillable = [
         'user_id',
+        'container_name',
         'container_id',
         'portMap',
         'status',
