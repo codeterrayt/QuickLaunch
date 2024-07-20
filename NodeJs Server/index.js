@@ -31,14 +31,14 @@ app.all("/spawn/container", async (req, res) => {
 });
 
 app.all("/start/container",async (req,res)=>{
-  const { container_id } = req.body;
-  const container = await startContainer(container_id);
+  const { container_id, ports } = req.body;
+  const container = await startContainer(container_id,ports);
   return res.send(container);
 });
 
 app.all("/pause/container",async (req,res)=>{
-  const { container_id } = req.body;
-  const container = await pauseContainer(container_id);
+  const { container_id, ports } = req.body;
+  const container = await pauseContainer(container_id,ports);
   return res.send(container);
 });
 

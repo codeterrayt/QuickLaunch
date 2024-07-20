@@ -30,7 +30,7 @@ const inspectContainerWithRetry = async (container, ports) => {
   return newMap;
 };
 
-const startContainer = async (container_id) => {
+const startContainer = async (container_id,ports) => {
   try {
     const container = docker.getContainer(container_id);
 
@@ -61,14 +61,15 @@ const startContainer = async (container_id) => {
       });
     });
 
-    return { "success": true, "message": CONSTANTS.CONTAINER_RESTARTED_SUCCESSFULLY};
+    const icwr = await inspectContainerWithRetry(container,ports);
+    return { "success": true, "message": CONSTANTS.CONTAINER_RESTARTED_SUCCESSFULLY, "portMap": icwr.portMap};
 
   } catch (error) {
     return { "success": false, "message": error.message };
   }
 };
 
-const pauseContainer = async (container_id) => {
+const pauseContainer = async (container_id,ports) => {
   try {
     const container = docker.getContainer(container_id);
 
@@ -99,7 +100,8 @@ const pauseContainer = async (container_id) => {
       });
     });
 
-    return { "success": true, "message": CONSTANTS.CONTAINER_PAUSED_SUCCESSFULLY };
+    const icwr = await inspectContainerWithRetry(container,ports);
+    return { "success": true, "message": CONSTANTS.CONTAINER_PAUSED_SUCCESSFULLY , "portMap": icwr.portMap};
 
   } catch (error) {
     return { "success": false, "message": error.message };

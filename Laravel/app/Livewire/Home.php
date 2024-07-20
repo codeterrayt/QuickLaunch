@@ -67,11 +67,6 @@ class Home extends Component
             'password' => $this->password
         ];
 
-        // dd($options);
-
-        sleep(2);
-
-
         $response = Http::post(env("NODE_JS_SERVER")."/spawn/container", $options);
 
 
