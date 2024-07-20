@@ -18,7 +18,7 @@ class Test extends Component
 
         // ]);
 
-        $response = Http::post('http://localhost:3000', [
+        $response = Http::post(env("NODE_JS_SERVER")."/start", [
                 'ports' => [8042,8088 ,19888 ,50070 ,50075 ],
                 'image' => 'harisekhon/hadoop'
         ]);

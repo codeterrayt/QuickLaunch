@@ -28,7 +28,7 @@ app.use(express.json());
 //   }
 // });
 
-app.all("/", async (req, res) => {
+app.all("/start", async (req, res) => {
     const { ports, image } = req.body;
 
     if (!ports || !image) {
