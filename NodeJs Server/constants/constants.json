@@ -1,0 +1,9 @@
+{
+    "CONTAINER_ALREADY_RUNNING_STATE":"Container Already Running",
+    "CONTAINER_ALREADY_PAUSE_STATE":"Container Already Paused",
+    "CONTAINER_PAUSED_SUCCESSFULLY":"Container Paused successfully",
+    "CONTAINER_STOPPED_SUCCESSFULLY":"Container Stopped successfully",
+    "CONTAINER_NOT_FOUND":"Container Not Found",
+    "CONTAINER_RESTARTED_SUCCESSFULLY":"Container restarted successfully",
+    "IMAGE_PORT_REQUIRED": "Image and Ports is Required"
+}
