@@ -63,31 +63,34 @@
             @enderror
 
 
-            <h2 class="text-xl font-bold mb-4">Password</h2>
-            <input type="password" wire:model="password" placeholder="Space Password"
-                class="w-full  bg-transparent  p-2  border-b-blue-500 border-b-2  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
-            @error('password')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
+            @if (@$clicked_image->image_type == "OS")
+                <h2 class="text-xl font-bold mb-4">Password </h2>
+                <input type="password" wire:model="password" placeholder="Space Password"
+                    class="w-full  bg-transparent  p-2  border-b-blue-500 border-b-2  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+                @error('password')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            @endif
 
             <div class="flex justify-end">
-                <button wire:click="closeModal" class="px-4 py-2 mr-2 text-white focus:outline-none"  wire:loading.remove wire:target="SaveAndStartSpace">
+                <button wire:click="closeModal" class="px-4 py-2 mr-2 text-white focus:outline-none" wire:loading.remove
+                    wire:target="SaveAndStartSpace">
                     Cancel
                 </button>
-                <button wire:click="SaveAndStartSpace"  wire:loading.attr="disabled"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+                <button wire:click="SaveAndStartSpace" wire:loading.attr="disabled"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none launch-button">
 
                     <div wire:loading.remove wire:target="SaveAndStartSpace">
                         Create Space
                         <svg class="arrow-bounce rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
                         </svg>
                     </div>
                     <div wire:loading wire:target="SaveAndStartSpace">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                 stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor"

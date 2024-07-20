@@ -12,14 +12,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.all("/spawn/container", async (req, res) => {
-    const { ports, image } = req.body;
+    const { ports, image, password } = req.body;
 
-    if (!ports || !image) {
+    if (!ports || !image || !password) {
         return res.status(400).send({success:false,message:CONSTANTS.IMAGE_PORT_REQUIRED});
     }
 
     try {
-        const container = await createAndStartContainer(image, ports);
+        const container = await createAndStartContainer(image, ports , password);
         if(container.message == undefined || container.message === null){
           return res.status(500).send(container);
         }

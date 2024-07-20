@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("image_repo_name")->nullable();
             $table->string("image_logo")->nullable();
             $table->string("image_expose_port")->nullable();
+            $table->string("image_type")->nullable();
             $table->timestamps();
         });
     }

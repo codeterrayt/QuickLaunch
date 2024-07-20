@@ -144,7 +144,7 @@ const stopContainer = async (container_id) => {
 
 
 // Function to create and start the container
-const createAndStartContainer = async (image, ports) => {
+const createAndStartContainer = async (image, ports, password) => {
   //   const options = {
   //     Image: "kasmweb/core-ubuntu-focal:1.14.0",
   //     Tty: true,
@@ -169,7 +169,7 @@ const createAndStartContainer = async (image, ports) => {
     Image: image,
     Tty: true,
     Interactive: true,
-    Env: ["VNC_PW=password"],
+    Env: [`VNC_PW=${password}`],
     HostConfig: {
       AutoRemove: true,
       ShmSize: 512 * 1024 * 1024, // 512 MB

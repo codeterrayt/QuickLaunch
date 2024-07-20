@@ -14,6 +14,7 @@ class DockerImage extends Model
         "image_repo_name",
         "image_logo",
         "image_expose_port",
+        "image_type",
     ];
 
 }

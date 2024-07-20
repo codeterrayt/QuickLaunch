@@ -22,7 +22,7 @@ class Home extends Component
     public $showModal = false;
     public $spaceName = '';
     public $password = '';
-    public $current_image;
+    public $current_image, $clicked_image;
 
     public function openModal()
     {
@@ -34,22 +34,36 @@ class Home extends Component
         $this->showModal = false;
     }
 
+
+    public function draft_image($image_id){
+
+        $this->current_image = $image_id;
+        $this->clicked_image = DockerImage::findOrFail($this->current_image);
+        $this->openModal();
+    }
+
     public function SaveAndStartSpace()
     {
         // Validate and save the space name
         $this->validate([
             'spaceName' => 'required|string|max:255',
-            'password' => 'required|string|max:255',
+            // 'password' => 'required|string|max:255',
             'current_image' => 'required|integer|exists:docker_images,id'
         ]);
 
-        $image = DockerImage::findOrFail($this->current_image);
+        if ($this->clicked_image->image_type === 'OS') {
+            $this->validate([
+                'password' => 'required|string|max:255',
+            ]);
+        }else{
+            $this->password = "secret_password";
+        }
 
-        $ports = explode(",",$image->image_expose_port);
+        $ports = explode(",",$this->clicked_image->image_expose_port);
 
         $options = [
             'ports' => $ports,
-            'image' => $image->image_repo_name,
+            'image' => $this->clicked_image->image_repo_name,
             'password' => $this->password
         ];
 
@@ -83,13 +97,6 @@ class Home extends Component
     }
 
 
-    public function draft_image($image_id){
-        $this->current_image = $image_id;
-        $this->openModal();
-        // $image = DockerImage::findOrFail($image_id);
-        // dd($image);
-
-    }
 
     public function start(){
         $image = DockerImage::first();
