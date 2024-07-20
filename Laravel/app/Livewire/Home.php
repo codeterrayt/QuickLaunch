@@ -18,7 +18,6 @@ class Home extends Component
 
     public function launch($image_id){
         $image = DockerImage::findOrFail($image_id);
-
         dd($image);
 
     }
