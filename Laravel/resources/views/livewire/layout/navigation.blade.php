@@ -35,6 +35,12 @@ $logout = function (Logout $logout) {
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('shared_spaces')" :active="request()->routeIs('shared_spaces')" wire:navigate>
+                        {{ __('Shared Spaces') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -112,6 +118,10 @@ $logout = function (Logout $logout) {
 
             <x-responsive-nav-link :href="route('spaces')" :active="request()->routeIs('spaces')" wire:navigate>
                 {{ __('Spaces') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('shared_spaces')" :active="request()->routeIs('shared_spaces')" wire:navigate>
+                {{ __('Shared Spaces') }}
             </x-responsive-nav-link>
 
         </div>
