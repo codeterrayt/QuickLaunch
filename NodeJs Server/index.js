@@ -1,9 +1,6 @@
 const express = require("express");
 const app = express();
-const path = require("path");
-
 const { createAndStartContainer } = require("./docker");
-const { cpSync } = require("fs");
 
 //application level middleware
 app.use((req, res, next) => {
@@ -14,29 +11,12 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// app.get("/", async (req, res) => {
-//   const port = await createAndStartContainer({
-//     IMAGE: "kasmweb/core-ubuntu-focal:1.14.0",
-//     PORT_BINDINGS: {
-//       "6901/tcp": [{ HostPort: "" }],
-//     },
-//   });
-//   if (port) {
-//     res.json(port);
-//   } else {
-//     res.status(500).send("Failed to start container");
-//   }
-// });
-
 app.all("/start", async (req, res) => {
     const { ports, image } = req.body;
 
     if (!ports || !image) {
         return res.status(400).send("Ports and image are required.");
     }
-
-
-    // console.log(ports , image)
 
     try {
         const container = await createAndStartContainer(image, ports);

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\DockerImage;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 
@@ -9,19 +10,17 @@ class Test extends Component
 {
 
     public function start(){
-        // $response = Http::get('http://localhost:3000');
+        $image = DockerImage::first();
+        $ports = explode(",",$image->image_expose_port);
 
-        // $response = Http::post('http://localhost:3000', [
+        $options = [
+            'ports' => $ports,
+            'image' => $image->image_repo_name
+        ];
 
-        //         'ports' => [6901],
-        //         'image' => 'kasmweb/core-ubuntu-focal:1.14.0'
+        // dd($options);
 
-        // ]);
-
-        $response = Http::post(env("NODE_JS_SERVER")."/start", [
-                'ports' => [8042,8088 ,19888 ,50070 ,50075 ],
-                'image' => 'harisekhon/hadoop'
-        ]);
+        $response = Http::post(env("NODE_JS_SERVER")."/start", $options);
 
 
         dd($response->json());

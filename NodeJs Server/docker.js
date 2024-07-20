@@ -24,40 +24,6 @@ console.log(process.env.DOCKER_WAITING_TIME)
     return newMap;
 };
 
-// const inspectContainerWithRetry = async (
-//   container,
-//   retries = 5,
-//   portBindings
-// ) => {
-//   const portKey = `${Object.keys(portBindings)[0]}`; // Assuming only one port binding for simplicity
-
-//   for (let attempt = 0; attempt < retries; attempt++) {
-//     try {
-//       const containerInfo = await container.inspect();
-//       const portMappings = containerInfo.NetworkSettings.Ports;
-
-//       if (portMappings && portMappings[portKey] && portMappings[portKey][0]) {
-//         const mappedPort = portMappings[portKey][0].HostPort;
-//         console.log(
-//           `Container started. Port ${portKey} is mapped to host port ${mappedPort} (Attempt: ${attempt})`
-//         );
-//         return mappedPort;
-//       } else {
-//         console.log(`Port ${portKey} not found in port mappings, retrying...`);
-//         await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for 100ms before retrying
-//       }
-//     } catch (err) {
-//       console.error("Error inspecting container:", err);
-//       return null;
-//     }
-//   }
-
-//   console.error(
-//     `Port ${portKey} not found in port mappings or structure is unexpected`
-//   );
-//   return null;
-// };
-
 // Function to create and start the container
 const createAndStartContainer = async (image, ports) => {
   //   const options = {
@@ -106,7 +72,7 @@ const createAndStartContainer = async (image, ports) => {
     return await inspectContainerWithRetry(container,ports);
   } catch (err) {
     console.error("Error creating or starting container:", err);
-    return "ot working";
+    return `Ivalid Image ${image} ${ports} `;
   }
 };
 
