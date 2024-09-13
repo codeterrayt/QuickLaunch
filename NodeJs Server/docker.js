@@ -200,53 +200,94 @@ const is_image_exists = async (image_repo_name) => {
 };
 
 
+// const pull_image_in_background = async (image_repo_name) => {
+//   // Start pulling the image in the background
+//   // console.log(image_repo_name)
+//   docker.pull(image_repo_name, (err, stream) => {
+//     if (err) {
+//       console.error(`Error pulling image: ${err.message}`);
+//       return;
+//     }
+
+//     // Handle the stream in the background
+//     docker.modem.followProgress(stream, async (err, output) => {
+//       if (err) {
+//         console.error(`Error during image pull process: ${err.message}`);
+//         return;
+//       }
+
+//       // Once the image is fully pulled, make the API call
+//       try {
+//         let res = await axios.post(`${env.LARAVEL_URL}/api/image/pulled`, {
+//           image_repo_name: btoa(image_repo_name)
+//         });
+//         console.log(res.data)
+//         console.log(`Image ${image_repo_name} pulled and API notified.`);
+//       } catch (apiError) {
+//         console.error(`Error calling API after image pull: ${apiError}`);
+//       }
+//     });
+//   });
+
+//   // Immediately return a response indicating the image is being pulled
+//   return {
+//     pulling: true,
+//     message: `Image ${image_repo_name} is being pulled in the background.`
+//   };
+// };
+
 const pull_image_in_background = async (image_repo_name) => {
-  // Start pulling the image in the background
-  // console.log(image_repo_name)
-  docker.pull(image_repo_name, (err, stream) => {
-    if (err) {
-      console.error(`Error pulling image: ${err.message}`);
-      return;
-    }
+  return new Promise((resolve, reject) => {
+    console.log(`Pulling request sent for image: ${image_repo_name}`);
 
-    // Handle the stream in the background
-    docker.modem.followProgress(stream, async (err, output) => {
+    // Start pulling the image in the background
+    docker.pull(image_repo_name, (err, stream) => {
       if (err) {
-        console.error(`Error during image pull process: ${err.message}`);
-        return;
+        console.error(`Error pulling image: ${err.message}`);
+        return reject(err);
       }
 
-      // Once the image is fully pulled, make the API call
-      try {
-        let res = await axios.post(`${env.LARAVEL_URL}/api/image/pulled`, {
+      // Log that the pulling process has started
+      console.log(`Pulling image: ${image_repo_name}`);
+
+      // Handle the stream in the background
+      docker.modem.followProgress(stream, (err, output) => {
+        if (err) {
+          console.error(`Error during image pull process: ${err.message}`);
+          return reject(err);
+        }
+
+        // Log success after the image is fully pulled
+        console.log(`Image ${image_repo_name} pulled successfully.`);
+
+        // Once the image is fully pulled, make the API call
+        axios.post(`${env.LARAVEL_URL}/api/image/pulled`, {
           image_repo_name: btoa(image_repo_name)
+        })
+        .then((res) => {
+          console.log(res.data);
+          resolve(res.data);
+        })
+        .catch((apiError) => {
+          console.error(`Error calling API after image pull: ${apiError}`);
+          reject(apiError);
         });
-        console.log(res.data)
-        console.log(`Image ${image_repo_name} pulled and API notified.`);
-      } catch (apiError) {
-        console.error(`Error calling API after image pull: ${apiError}`);
-      }
+      });
     });
   });
-
-  // Immediately return a response indicating the image is being pulled
-  return {
-    pulling: true,
-    message: `Image ${image_repo_name} is being pulled in the background.`
-  };
 };
+
+
 
 // Example usage in an API route
 const pull_image = async (image_repo_name) => {
   
   try {
     const result = await pull_image_in_background(image_repo_name);
-    return result;  // Send pulling response immediately
+    // return result;  // Send pulling response immediately
+    console.log("Pulling Request Sent to Background..")
   } catch (err) {
-    return {
-      success: false,
-      error: 'Error starting image pull process'
-    };
+    console.log("Error starting image pull process")
   }
 };
 

@@ -64,15 +64,40 @@ app.all("/stop/container", async (req, res) => {
 
 app.all("/image/exists", async (req, res) => {
   const { image_repo_name } = req.body;
-  // console.log(image_repo_name)
-  return res.send(await is_image_exists(image_repo_name));
+  console.log(image_repo_name)
+  let exists = await is_image_exists(image_repo_name);
+  console.log(exists)
+  return res.send(exists);
 });
 
 app.all("/image/pull", async (req, res) => {
   const { image_repo_name } = req.body;
-  let output = await pull_image(image_repo_name);
-  console.log(output);
-  return res.send(output);
+  let image_exists = await is_image_exists(image_repo_name);
+
+  let output = {
+    pulling: false,
+    exists: true,
+    message: "Image Already Exists!",
+  };
+
+  if (!image_exists["exists"]) {
+    // Start pulling the image in the background
+    pull_image(image_repo_name)
+      .then(() => {
+        console.log(`Started pulling image ${image_repo_name} in the background.`);
+      })
+      .catch((error) => {
+        console.error(`Error pulling image ${image_repo_name}:`, error);
+      });
+
+    // Respond immediately with the pulling status
+    output.pulling = true;
+    output.exists = false;
+    output.message = `Started pulling image ${image_repo_name} in the background.`;
+    return res.json(output);
+  } else {
+    return res.json(output);
+  }
 });
 
 app.use("/app", async (req, res, next) => {
