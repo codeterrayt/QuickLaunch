@@ -1,0 +1,158 @@
+[
+    {
+      "type": "header",
+      "version": "5.2.1",
+      "comment": "Export to JSON plugin for PHPMyAdmin"
+    },
+    { "type": "database", "name": "quicklaunch" },
+    {
+      "type": "table",
+      "name": "docker_images",
+      "database": "quicklaunch",
+      "data": [
+        {
+          "id": "1",
+          "image_name": "Ubuntu Focal",
+          "image_repo_name": "kasmweb/core-ubuntu-focal:1.14.0",
+          "image_logo": "/img/distro/ubuntu.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 07:32:23"
+        },
+        {
+          "id": "2",
+          "image_name": "Fedora 38",
+          "image_repo_name": "kasmweb/fedora-38-desktop:1.14.0",
+          "image_logo": "/img/distro/fedora.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 07:45:21"
+        },
+        {
+          "id": "3",
+          "image_name": "Postman",
+          "image_repo_name": "kasmweb/postman:1.14.0",
+          "image_logo": "/img/softwares/postman.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:01:31"
+        },
+        {
+          "id": "4",
+          "image_name": "Rocky Linux 9",
+          "image_repo_name": "kasmweb/rockylinux-9-desktop:1.14.0",
+          "image_logo": "/img/distro/rockylinux.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:21:18"
+        },
+        {
+          "id": "5",
+          "image_name": "Kali Linux",
+          "image_repo_name": "kasmweb/kali-rolling-desktop:1.14.0",
+          "image_logo": "/img/distro/kalilinux.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "6",
+          "image_name": "Parrotos 6",
+          "image_repo_name": "kasmweb/parrotos-6-desktop:1.14.0",
+          "image_logo": "/img/distro/parrot6.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "7",
+          "image_name": "Ubuntu Bionic",
+          "image_repo_name": "kasmweb/ubuntu-bionic-dind:develop-rolling",
+          "image_logo": "/img/distro/ubuntu.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "9",
+          "image_name": "Alma Linux",
+          "image_repo_name": "kasmweb/core-almalinux-9:1.14.0",
+          "image_logo": "/img/distro/alma-linux.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "10",
+          "image_name": "Centos 7 Desktop",
+          "image_repo_name": "kasmweb/centos-7-desktop:1.14.0",
+          "image_logo": "/img/distro/centos-7-desktop.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "11",
+          "image_name": "Trace Labs",
+          "image_repo_name": "kasmweb/tracelabs:1.14.0",
+          "image_logo": "/img/distro/trace-labs.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "13",
+          "image_name": "Oracle 9",
+          "image_repo_name": "kasmweb/core-oracle-9:1.14.0",
+          "image_logo": "/img/distro/oracle-9.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "14",
+          "image_name": "Opensuse 15",
+          "image_repo_name": "kasmweb/core-opensuse-15:1.14.0",
+          "image_logo": "/img/distro/opensuse-15.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        },
+        {
+          "id": "15",
+          "image_name": "Remnux Bionic",
+          "image_repo_name": "kasmweb/core-remnux-bionic:1.11.0-rolling",
+          "image_logo": "/img/distro/remnux-bionic.png",
+          "image_expose_port": "6901",
+          "image_type": "OS",
+          "image_status": "-1",
+          "created_at": null,
+          "updated_at": "2024-09-13 08:58:54"
+        }
+      ]
+    }
+  ]
