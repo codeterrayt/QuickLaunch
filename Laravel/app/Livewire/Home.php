@@ -89,7 +89,7 @@ class Home extends Component
             }
 
         } catch (\Throwable $th) {
-            $this->alert('error', $response['Image Not Found!']);
+            $this->alert('error', 'Image Not Found!');
         }
 
 
@@ -179,6 +179,7 @@ class Home extends Component
         dd($response->json());
 
     }
+
 
     public function render()
     {

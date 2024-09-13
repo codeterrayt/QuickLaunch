@@ -17,3 +17,22 @@ services:
     environment:
       PMA_HOST: db_service
 
+  dashboard:
+    build:
+      context: ./Laravel
+      dockerfile: Dockerfile
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db_service
+    environment:
+      DB_HOST_DOCKER: db_service
+
+  nodejs_backend:
+    build:
+      context: ./NodeJS_Backend/
+      dockerfile: Dockerfile
+    working_dir: /app
+    ports:
+      - "3000:3000"

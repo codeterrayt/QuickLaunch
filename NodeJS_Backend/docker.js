@@ -7,8 +7,18 @@ const { env } = require("process");
 // Load constants synchronously
 const CONSTANTS = require(path.join(__dirname, "constants", "constants.json"));
 
-// Create a Dockerode instance with default settings
-const docker = new Docker();
+let docker;
+
+if (env.DOCKER_SOCKET.length == 0) {
+  docker = new Docker();
+} else {
+  docker = new Docker({
+    socketPath: env.DOCKER_SOCKET,
+  });
+}
+
+
+// const docker = new Docker();
 
 // Function to inspect container with retry mechanism
 const inspectContainerWithRetry = async (container, ports) => {
@@ -182,23 +192,22 @@ const is_image_exists = async (image_repo_name) => {
       if (err && err.statusCode === 404) {
         resolve({
           exists: false,
-          success: true
+          success: true,
         });
       } else if (err) {
         resolve({
           exists: false,
-          success: false
+          success: false,
         });
       } else {
         resolve({
           exists: true,
-          success: true
+          success: true,
         });
       }
     });
   });
 };
-
 
 // const pull_image_in_background = async (image_repo_name) => {
 //   // Start pulling the image in the background
@@ -261,33 +270,31 @@ const pull_image_in_background = async (image_repo_name) => {
         console.log(`Image ${image_repo_name} pulled successfully.`);
 
         // Once the image is fully pulled, make the API call
-        axios.post(`${env.LARAVEL_URL}/api/image/pulled`, {
-          image_repo_name: btoa(image_repo_name)
-        })
-        .then((res) => {
-          console.log(res.data);
-          resolve(res.data);
-        })
-        .catch((apiError) => {
-          console.error(`Error calling API after image pull: ${apiError}`);
-          reject(apiError);
-        });
+        axios
+          .post(`${env.LARAVEL_URL}/api/image/pulled`, {
+            image_repo_name: btoa(image_repo_name),
+          })
+          .then((res) => {
+            console.log(res.data);
+            resolve(res.data);
+          })
+          .catch((apiError) => {
+            console.error(`Error calling API after image pull: ${apiError}`);
+            reject(apiError);
+          });
       });
     });
   });
 };
 
-
-
 // Example usage in an API route
 const pull_image = async (image_repo_name) => {
-  
   try {
     const result = await pull_image_in_background(image_repo_name);
     // return result;  // Send pulling response immediately
-    console.log("Pulling Request Sent to Background..")
+    console.log("Pulling Request Sent to Background..");
   } catch (err) {
-    console.log("Error starting image pull process")
+    console.log("Error starting image pull process");
   }
 };
 
@@ -350,5 +357,5 @@ module.exports = {
   pauseContainer,
   stopContainer,
   is_image_exists,
-  pull_image
+  pull_image,
 };

@@ -11,10 +11,10 @@ const {
 } = require("./docker");
 
 //application level middleware
-app.use((req, res, next) => {
-  console.log("Time:", Date.now());
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Time:", Date.now());
+//   next();
+// });
 
 app.use(express.json());
 
@@ -100,15 +100,15 @@ app.all("/image/pull", async (req, res) => {
   }
 });
 
-app.use("/app", async (req, res, next) => {
-  console.log("middlware");
-  next();
-});
+// app.use("/app", async (req, res, next) => {
+//   console.log("middlware");
+//   next();
+// });
 
-app.get("/app", async (req, res) => {
-  return res.send(
-    `<iframe src='https://127.0.0.1:53426/' fulkl style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" />`
-  );
-});
+// app.get("/app", async (req, res) => {
+//   return res.send(
+//     `<iframe src='https://127.0.0.1:53426/' fulkl style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" />`
+//   );
+// });
 
 app.listen(3000, () => console.log("app running on port 3000"));
