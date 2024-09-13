@@ -15,6 +15,7 @@ class DockerImage extends Model
         "image_logo",
         "image_expose_port",
         "image_type",
+        "image_status"
     ];
 
 }

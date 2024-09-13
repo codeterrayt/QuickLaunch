@@ -6,14 +6,21 @@ use App\Models\DockerImage;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 use App\Models\DockerContainer;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Home extends Component
 {
 
+    use LivewireAlert;
+
     public $images;
 
-    public function mount(){
+    public function fetchData(){
         $this->images = DockerImage::get();
+    }
+
+    public function mount(){
+        $this->fetchData();
     }
 
 
@@ -39,8 +46,55 @@ class Home extends Component
 
         $this->current_image = $image_id;
         $this->clicked_image = DockerImage::findOrFail($this->current_image);
-        $this->openModal();
+
+        $options = [
+            'image_repo_name' => $this->clicked_image->image_repo_name,
+        ];
+
+        $response = Http::post(env("NODE_JS_SERVER")."/image/exists/", $options);
+
+        // dd($response['exists'],$options);
+
+        if(@$response['exists']){
+            $this->openModal();
+        }else{
+            $this->alert('error', 'Image Not Found!');
+            $this->clicked_image->image_status = -1;
+            $this->clicked_image->save();
+        }
     }
+
+
+    public function download_image($image){
+        $options = [
+            'image_repo_name' => $image,
+        ];
+
+        try {
+            $img = DockerImage::where("image_repo_name", $image)->first();
+            $img->image_status = 0;
+            $img->save();
+            $response = Http::post(env("NODE_JS_SERVER")."/image/pull/", $options);
+            if(@$response['exists']){
+                $this->alert('success', $response['message']);
+                $img->image_status = 1;
+                $img->save();
+            }
+            else if($response['pulling']){
+                $this->alert('success', $response['message']);
+            }else{
+                $this->alert('error', $response['Something Went Wrong!']);
+                $img->image_status = -1;
+                $img->save();
+            }
+
+        } catch (\Throwable $th) {
+            $this->alert('error', $response['Image Not Found!']);
+        }
+
+
+    }
+
 
     public function SaveAndStartSpace()
     {
@@ -93,7 +147,6 @@ class Home extends Component
     }
 
 
-
     public function start(){
         $image = DockerImage::first();
         $ports = explode(",",$image->image_expose_port);
@@ -124,8 +177,6 @@ class Home extends Component
             'error' => $response['container_state']['Error'],
         ]);
         dd($response->json());
-
-
 
     }
 
