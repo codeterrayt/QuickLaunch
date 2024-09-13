@@ -56,7 +56,8 @@ npm install && npm run dev
 ## ScreenShots 
 ![image](https://github.com/user-attachments/assets/eca2878b-bd9c-4610-b0a5-b0c483a4723c)
 ![image](https://github.com/user-attachments/assets/b83044af-461e-417d-a402-b5d44804509f)
-![image](https://github.com/user-attachments/assets/73012d9d-091c-4679-8eac-0886c65e0d99)
+![image](https://github.com/user-attachments/assets/52da08df-d8aa-4b00-a4ea-6484a99f673d)
+
 
 
 ## Demo Video
