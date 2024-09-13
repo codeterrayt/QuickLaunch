@@ -31,7 +31,8 @@ Here's the revised `Technologies` section with the inclusion of Livewire:
 - **Docker**
 
 ## LLD (Low Level Design) Diagram
-![image](https://github.com/user-attachments/assets/aae8e9be-f748-4030-9c21-0aa43f2c3a8a)
+![image](https://github.com/user-attachments/assets/51b4cf8d-a4d4-41b1-8c85-7de379e30f58)
+
 
 
 ## Installation Guide
