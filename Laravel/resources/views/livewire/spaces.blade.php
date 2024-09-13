@@ -55,7 +55,7 @@
                     <th scope="col" class="px-6 py-3">Space</th>
                     <th scope="col" class="px-6 py-3">Image</th>
                     <th scope="col" class="px-6 py-3">Status</th>
-                    <th scope="col" class="px-6 py-3">Services</th>
+                    <th scope="col" class="px-6 py-3">Port</th>
                     <th scope="col" class="px-6 py-3 ">Operations</th>
                 </tr>
             </thead>
@@ -80,11 +80,15 @@
                             <span>
 
                                 @if ($container->paused)
-                                    <span wire:loading wire:target="restartContainer('{{ $container->container_id }}')">STARTING...</span>
-                                    <span wire:loading.remove wire:target="restartContainer('{{ $container->container_id }}')">PAUSED</span>
+                                    <span wire:loading
+                                        wire:target="restartContainer('{{ $container->container_id }}')">STARTING...</span>
+                                    <span wire:loading.remove
+                                        wire:target="restartContainer('{{ $container->container_id }}')">PAUSED</span>
                                 @elseif ($container->running)
-                                    <span wire:loading wire:target="pauseContainer('{{ $container->container_id }}')">PAUSING...</span>
-                                    <span wire:loading.remove wire:target="pauseContainer('{{ $container->container_id }}')">RUNNING</span>
+                                    <span wire:loading
+                                        wire:target="pauseContainer('{{ $container->container_id }}')">PAUSING...</span>
+                                    <span wire:loading.remove
+                                        wire:target="pauseContainer('{{ $container->container_id }}')">RUNNING</span>
                                 @endif
                             </span>
                         </td>
@@ -93,13 +97,15 @@
                             <ul class="list-disc list-inside">
 
                                 @foreach ($container->portMap as $port)
-                                    <a href="@if (@$container->image->image_type == 'OS'){{ 'https' }}@else{{ 'http' }}@endif://localhost:{{ $port }}"
+                                    <a href="@if (@$container->image->image_type == 'OS') {{ 'https' }}@else{{ 'https' }} @endif://localhost:{{ $port }}"
                                         target="_blank">
-                                        <li class="hover:text-green-500"> {{ $port }}</li>
+                                        <li class="hover:text-green-500 underline"> {{ $port }}</li>
                                         {{-- <button
                                         class=" w-40 mb-5 inline-flex items-center px-3 py-2 justify-center cursor-pointer text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></button> --}}
                                     </a>
                                 @endforeach
+
+                            </ul>
 
                         <td class="py-4 justify-center">
 
@@ -113,6 +119,7 @@
                                 </svg> --}}
 
                                 <div class="relative">
+
                                     @if ($container->paused)
                                         {{-- Restart Container Button --}}
 
