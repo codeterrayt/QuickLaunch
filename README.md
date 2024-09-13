@@ -59,14 +59,8 @@ For a quick overview and demonstration of QuickLaunch in action, check out the f
 
 [Watch Demo Video](#)  <!-- Replace # with the actual link to your demo video -->
 
-## Diagram
-
-Here’s a high-level architecture diagram of QuickLaunch:
-
-![QuickLaunch Architecture Diagram](#)  <!-- Replace # with the actual link to your diagram -->
-
-Here's a section for Open Source and Contribution:
-
+## LLD (Low Level Design) Diagram
+![image](https://github.com/user-attachments/assets/aae8e9be-f748-4030-9c21-0aa43f2c3a8a)
 
 ## Open Source and Contribution
 
